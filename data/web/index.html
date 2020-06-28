@@ -1,0 +1,351 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bảng Điều Khiển</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+ 
+<link rel="stylesheet" href="css/b.css">
+<link rel="stylesheet" href="css/bt.css">
+ <style type = "text/css" media = "all">
+         .timeSetting{
+			display: flex;
+			flex-direction: row
+		 }  
+		 
+      </style>
+</head>
+<body>
+
+
+
+
+
+
+<div id="main">
+<h2 class="title-page">Chấm công Việt-Hàn - Alphalt test</h2>
+<h5 >Máy vẫn đang trong quá trình thử nghiệm, để nghị tiếp tục chấm công bằng tay để đảm bảo!!!</h5>
+  <div class="container">
+  
+    <div class="group-tabs">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" onclick="homeFunc()">Trang Chính</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" onclick="tab2Event()" >Nhân Viên</a></li>
+        <li role="presentation"><a href="#salary" aria-controls="salary" role="tab" data-toggle="tab"onclick="tab3Event()">Lương</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" onclick="settingFunc()">Cài Đặt</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+			
+			<br />
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Thông tin Chip điều khiển</h3>
+			  </div>
+			  <div class="panel-body">
+				<h5><span class="ngang" > <p id="chipID" value="N/A"> Chip ID:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="sketchSize" value="N/A"> Sketch sử dụng:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="heapFree" value="N/A"> Heap còn trống:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="freeSketchSize" value="N/A"> Bộ nhớ sketch còn trống:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="coreVersion" value="N/A"> Phiên bản nhân:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="MACadr" value="N/A"> Địa chỉ MAC:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="IPAPadr" value="N/A"> Địa chỉ IP host:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="IPLocaladr" value="N/A"> Địa chỉ IP local:  </p> </span> </h5>
+				<h5><span class="ngang" > <p id="socketStatus" value="Disable"> Trạng thái Socket:  </p> </span> </h5>
+			  </div>
+			</div>
+			
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Thông tin Phiên bản</h3>
+			  </div>
+			  <div class="panel-body">
+				<h5> Số phiên bản: <span id="chipID" value="N/A"> N/A </span> </h5>
+				<h5> Ngày Tạo: <span id="sketchSize" value="N/A"> N/A </span> </h5>
+				
+			  </div>
+			</div>
+			
+			
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Socket Log</h3>
+			  </div>
+			  <div class="panel-body">
+				<div class="input-group">
+				<input type="text" id="host" value="192.168.5.101" class="form-control" placeholder="ws://hostname:port/ws">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" onclick="connect(host.value)">Connect</button>
+				</span>
+				</div>
+				<div class="input-group">
+					<input type="text" id="dateToSend" class="form-control" placeholder="Date to send">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="send(dateToSend.value)">Send</button>
+					</span>
+				</div>
+				<br>
+				<textarea id="output" style="width:100%;height:500px;"></textarea>
+				<br>
+				<input type="button" value="Clear" onclick="clearText()">
+				
+			  </div>
+			
+			
+			
+			
+			
+			
+
+		
+			</div>
+		</div>
+        
+		<div role="tabpanel" class="tab-pane" id="profile">
+		<form>
+			<div class='form-inline'>
+				<input type="text" id="idName" class="form-control" placeholder="Tên Nhân Viên">
+				<button type="submit" class="btn btn-primary">Tìm</button>
+			</div>
+		</form>
+		
+		<form>
+			<div class='form-inline' id="formNV">
+				<input type="text" id="idNewToAdd" class="form-control" placeholder="Id - Để trống máy tự thêm">
+				<input type="text" id="nameNewToAdd" class="form-control" placeholder="Tên nhân viên - Để trống nếu thêm thẻ từ">
+				<div class="input-group">
+					<input type="text" id="idCardToAdd" class="form-control" placeholder="Mã thẻ Từ">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="send('?2')">Lấy mã</button>
+					</span>
+				</div>
+				
+				<button  type="button" class="btn btn-primary" onclick="buttonAddMem()">Thêm Thẻ/Nhân Viên</button>
+			</div>
+		</form>
+		<form>
+			<div class='form-inline' id="formXoaThe">
+				<input type="text" id="idCardToDelete" class="form-control" placeholder="Nhập ID Card để xoá">
+				<button type="button"  class="btn btn-success" id="btnDeleteCardID">Xoá Thẻ</button>
+			</div>
+			<h5><b>Note: Nếu toàn bộ thẻ của ID bị xoá, máy sẽ tự động xoá toàn bộ thông tin của ID đó bảo gồm tên và bảng lương!!!</b></h5>
+		</form>
+		
+		<div class="container">
+            <div class="row">
+                <h3 id ="nameList">Danh sách nhân viên</h3>
+				
+				<h6 id ="notes">Nhấp vào tên nhân viên để đổi tên</h6>
+                <table id="tableEmployess" class="table table-sm table-hover table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 6%">ID</th>
+                            <th style="width: 26%">Họ Tên</th>
+                            <th style="width: 68%">Danh Sách Thẻ</th>
+                        </tr>
+                    </thead>
+					<tbody>
+				   </tbody>
+                </table>
+            </div>
+        </div>
+		</div>
+		
+        <div role="tabpanel" class="tab-pane" id="salary">
+		
+		
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h3 class="panel-title">Bảng Lương theo tháng</h3>
+			</div>
+			<div class="panel-body">
+			
+				
+				<div class='form-inline'>
+					<div class="input-group">
+						<span class="input-group-addon">Tháng</span>
+						<input  type="number" class="form-control" placeholder="Tháng" id="monthGetSalary"value="4" min="1" max="12">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">Năm</span>
+						<input type="number" class="form-control" placeholder="Năm"id="yearGetSalary" value="2019" min="2010" max="2099">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">Hệ số lương</span>
+						<input type="number" class="form-control" placeholder="Năm"id="salaryBonus" value="15000" min="1000" max="50000">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">Chọn nhân viên để xem</span>
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Click Chọn<span class="caret"></span></button>
+							<ul class="dropdown-menu dropdown-menu-right" id="listNhanVienTheoThang">
+							  
+							</ul>
+					  </div>
+					</div>
+				</div>
+
+				<div id="nothingToShow" class="row">
+					<h3> Không tìm thấy record cho nhân viên này!!!! </h3>
+				</div>
+				
+				<div id="containerTableSalaryByMonth" class="row">
+					<h3 id ="nameList">Bảng lương tháng </h3>
+					<h6 id ="notes">Máy vẫn đang trong quá trình thử nghiệm, để nghị vẫn tiếp tục chấm công bằng tay</h6>
+					<table id="tableSalaryByMonth" class="table table-sm table-hover table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="width: 5%">Ngày</th>
+								<th style="width: 20%">Giờ Vào</th>
+								<th style="width: 20%">Giờ Ra</th>
+								<th style="width: 15%">Thời gian đã làm</th>
+								<th style="width: 10%">Hệ số</th>
+								<th style="width: 20%">Quy tiền</th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		</div>	
+		
+        <div role="tabpanel" class="tab-pane" id="settings">
+		<br />
+		
+		
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Thời gian   Giờ - Phút - Giây - Ngày - Tháng - Năm</h3>
+			</div>
+			<div class="panel-body timeSetting">
+				
+				<input  type="number" id="gio" class="form-control" placeholder="Giờ"></input>
+				<input  type="number" id="phut" class="form-control" placeholder="Phút"></input>
+				<input  type="number" id="giay" class="form-control" placeholder="Giây"></input>
+				<input  type="number" id="ngay" class="form-control" placeholder="Ngày"></input>
+				<input  type="number" id="thang" class="form-control" placeholder="Tháng"></input>
+				<input  type="number" id="nam" class="form-control" placeholder="Năm"></input>
+				<div>
+					<button type="submit"  class="btn btn-primary" onclick="useTimePC()">Sử dụng giờ hiện tại</button>
+				</div>
+				<div>
+					<button type="submit"  class="btn btn-primary" onclick="buttonUpdateTime()">Cập Nhật</button>
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Cài đặt Wifi</h3>
+			</div>
+			<div class="panel-body">
+				<h6> <b>Note:</b> </h6>
+				<h6> Tên Wifi phải không dấu, không có ký tự đặc biệt từ 3 đến 30 kí tự. Nếu có kí tự đặc biệt, máy sẽ tự loại bỏ!! VD: MayChamCong  </h6>
+				<h6> Mật khẩu wifi nên để chỉ số, phải từ 8 số trở lên. Phòng trường hợp quên mật khẩu, máy sẽ hiển thị mật khẩu wifi 15 giây sau khi khởi động!!! </h6>
+				<h6> Timeout(tính bằng giây) là thời gian wifi mở tính từ lúc khởi động, tối thiểu là 300s, tối đa là 3600s mặc định là  900s</h6>
+				<div class='form-inline'>
+					<div class="input-group">
+						<span class="input-group-addon">Tên Wifi</span>
+						<input  type="text" class="form-control" placeholder="tên wifi" id="nameWifiESP" value="Name default" >
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">Mật khẩu Wifi</span>
+						<input type="number" class="form-control" placeholder="mật khẩu wifi" id="passWifiESP" value="12345678" min="10000000" max="9999999999999">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">Timeout</span>
+						<input type="number" class="form-control" placeholder="thời gian tắt wifi" id="timeWifiESP" value="900" min="300" max="3600">
+					</div>
+					<button type="submit"  class="btn btn-success" onclick="buttonUpdateWifi()">Cập Nhật</button>
+				</div>
+			  </div>
+		</div>	
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Cài đặt ESP</h3>
+			</div>
+			<div class="panel-body">
+				<h6> <b>Note:</b> </h6>
+				<h6>Mật khẩu phải là số, giá trị từ 100000 tới 996992</h6>
+				<h6> Mật khẩu khoá trang web quản trị, mật khẩu sẽ hiển thị sau 30s từ lúc khởi động, để đảm bảo an toàn, lấy mật khẩu hiển thị cộng với 3006 sẽ ra mật khẩu đúng  </h6>
+
+				<div class='form-inline'>
+					<div class="input-group">
+						<span class="input-group-addon">Mật khẩu</span>
+						<input  type="number" class="form-control" placeholder="mật khẩu" id="passWebESP" value="123456" min="100000" max="996992">
+					</div>
+					<button type="submit"  class="btn btn-success" onclick="buttonUpdateWeb()">Cập Nhật</button>
+				</div>
+			  </div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Cài đặt Cập nhật</h3>
+			</div>
+			<div class="panel-body">
+				<h6> <b>Note:</b> </h6>
+				<h6> <b>Chức này này chỉ để dự phòng, đang phát  triển, vui lòng chỉ sử dụng khi cần thiết!!!</b> </h6>
+				<h6>để cập nhật firmware bấm vào button phía dưới. Sử dụng firmware .bin từ tác giả.!!</h6>
+				<button type="submit"  class="btn btn-success" onclick="buttonUpdate()">Bấm vào đây</button>
+			  </div>
+		</div>
+		
+		
+		
+		
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+      
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/monitor.js"></script>
+</body>
+</html>
